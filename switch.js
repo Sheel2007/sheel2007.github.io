@@ -8,7 +8,7 @@ const service_area = document.querySelectorAll(".service-area");
 const more = document.querySelectorAll(".more")
 const layers = document.querySelectorAll(".layer")
 const btn = document.querySelectorAll(".btn")
-const form = document.querySelectorAll("form input")
+const form1 = document.querySelectorAll("form input")
 const textarea = document.querySelector("textarea");
 
 switchButton.addEventListener("click", () => {
@@ -37,7 +37,7 @@ switchButton.addEventListener("click", () => {
         btn.forEach(element => {
             element.style.color = "#fff";
         })
-        form.forEach(element => {
+        form1.forEach(element => {
             element.style.backgroundColor = "#262626";
         })
         textarea.style.backgroundColor = "#262626";
@@ -67,7 +67,7 @@ switchButton.addEventListener("click", () => {
         btn.forEach(element => {
             element.style.color = "#080808";
         })
-        form.forEach(element => {
+        form1.forEach(element => {
             element.style.backgroundColor = "#dadada";
         })
         textarea.style.backgroundColor = "#dadada";
