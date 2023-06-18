@@ -504,12 +504,12 @@ nav .fas {
 
 @media only screen and (max-width: 600px) {
     #header {
-        background-image: url(Images/mini-pic1.png);
+        background-image: none;
     }
 
     .header-text {
-        margin-top: 100%;
-        font-size: 16px;
+        margin-top: 70%;
+        font-size: 25px;
     }
 
     .header-text h1 span{
@@ -520,6 +520,10 @@ nav .fas {
 
     .header-text h1 {
         font-size: 30px;
+    }
+
+    label {
+        margin-top: 20px;
     }
 
     nav .fas {
