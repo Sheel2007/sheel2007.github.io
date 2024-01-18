@@ -322,6 +322,7 @@ nav a i {
     padding-top: 15px;
     font-family: 'Poppins', sans-serif;
     color: white;
+    line-height: 1.4;
 }
 
 .services-list div a {
