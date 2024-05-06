@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/531bfb5cc0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <!-- <img src="Images/logo1.png" class="logo"> -->
+                <ul id="sidemenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Projects</a></li>
+                    <li><a href="index.html#portfolio">Blogs</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <!-- <button class="switch-mode">Switch Mode</button> -->
+                    <i class="fas fa-times" onclick="closemenu()"></i>
+                </ul>
+                <i class="fas fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div class="header-text">
+                <p>Blog Page</p>
+                <h1>Welcome to My Blog</h1>
+            </div>
+            <input type="checkbox" id="darkmode-toggle"/>
+            <label for="darkmode-toggle">
+                <!-- SVGs for dark mode toggle -->
+            </label>
+        </div>
+    </div>
+
+    <div id="blog-posts">
+        <div class="container">
+            <div class="work-list">
+                <div class="work">
+                    <img src="Images/work-1.png" alt="">
+                    <div class="layer">
+                        <h3>Web App With Python</h3>
+                        <p>Python is a popular programming language for web development. 
+                            In this blog post, we'll walk through the process of building a simple web 
+                            application using Python and Flask.</p>
+                        <a href="test.html"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="work">
+                    <img src="Images/work-2.png" alt="">
+                    <div class="layer">
+                        <h3>Debugging</h3>
+                        <p>Debugging is an essential part of software development. 
+                            It can be time-consuming and frustrating, 
+                            but it's a critical skill for any programmer to master. 
+                            In this blog post, we'll discuss some tips and tricks for 
+                            debugging your code like a pro.</p>
+                        <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="work">
+                    <img src="Images/work-3.png" alt="">
+                    <div class="layer">
+                        <h3>Is programming worth learning?</h3>
+                        <p>With more technological advancements discovered everyday, 
+                            programming is a skill that has become more and more popular, 
+                            but is this skill really worth learning.</p>
+                        <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p>Copyright © Sheel.</p>
+        </div>
+    </div>
+
+    <script src="switch.js"></script>
+    <script src="tablinks.js"></script>
+    <script src="sidemenu.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App With Python</title>
+    <link rel="stylesheet" href="blog.css">
+    <script src="https://kit.fontawesome.com/531bfb5cc0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <ul id="sidemenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#services">Projects</a></li>
+                    <li><a href="index.html#portfolio">Blogs</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <!-- <button class="switch-mode">Switch Mode</button> -->
+                    <i class="fas fa-times" onclick="closemenu()"></i>
+                </ul>
+                <i class="fas fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div class="header-content">
+                <div class="header-text">
+                    <p>Blog Post</p>
+                    <h1>Web App With Python</h1>
+                    <!-- <img src="Images/work-1.png" class="logo"> -->
+                </div>
+                <div class="header-image"></div>
+            </div>
+            <input type="checkbox" id="darkmode-toggle"/>
+            <label for="darkmode-toggle">
+                <!-- SVGs for dark mode toggle -->
+            </label>
+        </div>
+    </div>
+
+    <div id="blog-post">
+        <div class="container">
+            <div class="blog-content">
+                <!-- <img src="Images/work-1.png" alt=""> -->
+                <div class="image-container">
+                    <img src="Images/work-1.png" alt="img">
+                </div>
+                <div class="text-box">
+                    <h2>Web App With Python</h2>
+                    <p>Python is a popular programming language for web development. 
+                        In this blog post, we'll walk through the process of building a simple web 
+                        application using Python and Flask.</p>
+                    <p>We'll cover the following topics:</p>
+                    <ul>
+                        <li> - Setting up Flask environment</li>
+                        <li> - Creating routes and views</li>
+                        <li> - Rendering templates</li>
+                        <li> - Handling forms</li>
+                        <li> - Deploying the app</li>
+                    </ul>
+                    <p>By the end of this tutorial, 
+                        you'll have a basic understanding of 
+                        how to create web applications 
+                        with Python and Flask.</p>
+
+                        <h3>Prerequisites</h3>
+                        <p>Before we get started, you’ll need to have Python installed on your computer. You can download Python from the official website. We’ll also be using Flask, which is a Python web framework. You can install it using pip, the Python package manager, by running the following command:</p>
+                        <pre><code>pip install flask</code></pre>
+    
+                        <h3>Creating a Basic Flask Application</h3>
+                        <p>Once you have Flask installed, let’s create a basic Flask application. Create a new Python file and import the Flask class:</p>
+                        <pre><code class="language-python">from flask import Flask</code></pre>
+                        <p>Next, create an instance of the Flask class:</p>
+                        <pre><code class="language-python">app = Flask(__name__)</code></pre>
+                        <p>Here, __name__ is a special Python variable that represents the name of the current module. We’re using it as the argument to the Flask constructor.</p>
+    
+                        <p>Now, let’s define a route that will be used to display a message to the user. Add the following code to your Python file:</p>
+                        <pre><code class="language-python">@app.route('/')
+
+def hello():
+    return 'Hello, world!'</code></pre>
+                        <p>Here, we’ve used the @app.route() decorator to specify the URL route that this function should handle. In this case, it’s the root URL (’/’). When a user visits this URL, Flask will call the hello() function and return the string ‘Hello, world!’.</p>
+    
+                        <h3>Running the Flask Application</h3>
+                        <p>To run the Flask application, save your Python file and run the following command in your terminal:</p>
+                        <pre><code>export FLASK_APP=yourfilename.py
+flask run</code></pre>
+                        <p>Here, yourfilename.py is the name of the Python file you just created. This command will start the Flask development server and you’ll be able to access your web application by visiting <a href="http://localhost:5000/">http://localhost:5000/</a> in your web browser.</p>
+    
+                        <p>Congratulations, you’ve just created your first Flask web application!</p>
+    
+                        <h3>Adding HTML Templates</h3>
+                        <p>Of course, a real web application needs to display more than just plain text. Let’s add an HTML template to our Flask application.</p>
+                        <p>Create a new directory in your project called templates. In this directory, create a new file called index.html. Add the following HTML code to this file:</p>
+                        <pre><code>&lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;Hello, world!&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+                        <p>Now, modify your hello() function to use this template:</p>
+                        <pre><code>from flask import Flask, render_template
+    
+    app = Flask(__name__)
+    
+    @app.route('/')
+    def hello():
+        return render_template('index.html')</code></pre>
+                        <p>Here, we’ve imported the render_template() function from the flask module and modified the hello() function to use it. When a user visits the root URL, Flask will now render the index.html template and return it as a response.</p>
+
+                        <h3>Conclusion</h3>
+                        <p>In this blog post, we’ve covered the basics of creating a web application with Python and Flask. We created a simple application that displays a message to the user, added an HTML template to make the application look nicer, and ran the application using the Flask development server. There’s much more you can do with Flask, but this should give you a good starting point for your web development journey with Python.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p>Copyright © Sheel.</p>
+        </div>
+    </div>
+
+    <script src="switch.js"></script>
+    <script src="tablinks.js"></script>
+    <script src="sidemenu.js"></script>
+    
+</body>
+</html>
