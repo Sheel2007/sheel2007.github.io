@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 html {
     scroll-behavior: smooth;
 }
@@ -661,6 +663,7 @@ code {
     color: #f8f8f2 !important;
     overflow-x: scroll;
     display: block;
+    font-family: 'JetBrains Mono', sans-serif !important;
 }
 
 pre {
@@ -671,4 +674,5 @@ pre {
     overflow-x: auto;
     margin-bottom: 20px;
     white-space: pre-wrap;
+    font-family: 'JetBrains Mono', sans-serif !important;
 }
