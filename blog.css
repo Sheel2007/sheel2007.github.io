@@ -420,12 +420,16 @@ nav a i {
 
 .btn {
     display: block;
-    margin: 50px auto;
+    /* margin: 50px auto; */
+    position: absolute;
+    margin-bottom: 0;
+    top: 30px;
     width: fit-content;
     border: 1px solid #1cdb22;
-    padding: 14px 50px;
+    padding: 14px 20px;
     border-radius: 6px;
     text-decoration: none;
+    font-size: 20px;
     color: #fff;
     transition: background 0.5s;
 }
