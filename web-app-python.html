@@ -80,11 +80,11 @@
                         how to create web applications 
                         with Python and Flask.</p>
 
-                        <h3>Prerequisites</h3>
+                        <h2>Prerequisites</h2>
                         <p>Before we get started, you’ll need to have Python installed on your computer. You can download Python from the official website. We’ll also be using Flask, which is a Python web framework. You can install it using pip, the Python package manager, by running the following command:</p>
                         <pre><code>pip install flask</code></pre>
     
-                        <h3>Creating a Basic Flask Application</h3>
+                        <h2>Creating a Basic Flask Application</h2>
                         <p>Once you have Flask installed, let’s create a basic Flask application. Create a new Python file and import the Flask class:</p>
                         <pre><code class="language-python">from flask import Flask</code></pre>
                         <p>Next, create an instance of the Flask class:</p>
@@ -98,7 +98,7 @@ def hello():
     return 'Hello, world!'</code></pre>
                         <p>Here, we’ve used the @app.route() decorator to specify the URL route that this function should handle. In this case, it’s the root URL (’/’). When a user visits this URL, Flask will call the hello() function and return the string ‘Hello, world!’.</p>
     
-                        <h3>Running the Flask Application</h3>
+                        <h2>Running the Flask Application</h2>
                         <p>To run the Flask application, save your Python file and run the following command in your terminal:</p>
                         <pre><code class="language-python">export FLASK_APP=yourfilename.py
 flask run</code></pre>
@@ -106,7 +106,7 @@ flask run</code></pre>
     
                         <p>Congratulations, you’ve just created your first Flask web application!</p>
     
-                        <h3>Adding HTML Templates</h3>
+                        <h2>Adding HTML Templates</h2>
                         <p>Of course, a real web application needs to display more than just plain text. Let’s add an HTML template to our Flask application.</p>
                         <p>Create a new directory in your project called templates. In this directory, create a new file called index.html. Add the following HTML code to this file:</p>
                         <pre><code class="language-text">&lt;!DOCTYPE html&gt;
@@ -128,7 +128,7 @@ def hello():
     return render_template('index.html')</code></pre>
                         <p>Here, we’ve imported the render_template() function from the flask module and modified the hello() function to use it. When a user visits the root URL, Flask will now render the index.html template and return it as a response.</p>
 
-                        <h3>Conclusion</h3>
+                        <h2>Conclusion</h2>
                         <p>In this blog post, we’ve covered the basics of creating a web application with Python and Flask. We created a simple application that displays a message to the user, added an HTML template to make the application look nicer, and ran the application using the Flask development server. There’s much more you can do with Flask, but this should give you a good starting point for your web development journey with Python.</p>
                     </div>
                 </div>
@@ -143,7 +143,7 @@ def hello():
         </div>
     </div>
 
-    <script src="switch.js"></script>
+    <script src="switch-post.js"></script>
     <script src="tablinks.js"></script>
     <script src="sidemenu.js"></script>
     
