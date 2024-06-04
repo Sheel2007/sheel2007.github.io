@@ -167,6 +167,16 @@ nav a i {
     margin-top: 20px;
 }
 
+.header-text p {
+    font-size: 20px;
+}
+
+#blurb {
+    max-width: 40%;
+    overflow: clip;
+    line-height: 130%;
+}
+
 .header-text h1 span {
     /* color: #1cdb22; */
     color: #080808;
