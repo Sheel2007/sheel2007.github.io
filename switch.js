@@ -4,6 +4,7 @@ const navbar = document.querySelectorAll("nav ul li a");
 const titles = document.querySelectorAll(".sub-title");
 const me = document.querySelector(".me");
 const tabs = document.querySelectorAll(".tab-titles p");
+const tab_contents = document.querySelectorAll(".tab-contents ul li");
 const service_area = document.querySelectorAll(".service-area");
 const more = document.querySelectorAll(".more")
 const layers = document.querySelectorAll(".layer")
@@ -23,6 +24,9 @@ switchButton.addEventListener("click", () => {
         })
         me.style.color = "#fff"
         tabs.forEach(element => {
+            element.style.color = "#fff";
+        })
+        tab_contents.forEach(element => {
             element.style.color = "#fff";
         })
         service_area.forEach(element => {
@@ -53,6 +57,9 @@ switchButton.addEventListener("click", () => {
         })
         me.style.color = "#080808"
         tabs.forEach(element => {
+            element.style.color = "#080808";
+        })
+        tab_contents.forEach(element => {
             element.style.color = "#080808";
         })
         service_area.forEach(element => {
