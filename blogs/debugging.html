@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging Tips and Tricks</title>
+    <link rel="stylesheet" href="../blog.css">
+    <script src="https://kit.fontawesome.com/531bfb5cc0.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+</head>
+<body>
+    <div id="header">
+        <div class="container">
+            <nav>
+                <ul id="sidemenu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#services">Projects</a></li>
+                    <li><a href="../index.html#portfolio">Blogs</a></li>
+                    <li><a href="../index.html#contact">Contact</a></li>
+                    <!-- <button class="switch-mode">Switch Mode</button> -->
+                    <i class="fas fa-times" onclick="closemenu()"></i>
+                </ul>
+                <i class="fas fa-bars" onclick="openmenu()"></i>
+            </nav>
+            <div class="header-content">
+                <div class="header-text">
+                    <a href="../blog.html" class="btn">Back</a>
+                    <p>Blog Post</p>
+                    <h1>Web App With Python</h1>
+                    <!-- <img src="Images/work-1.png" class="logo"> -->
+                </div>
+                <div class="header-image"></div>
+            </div>
+            <input type="checkbox" id="darkmode-toggle"/>
+            <label for="darkmode-toggle">
+                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg class="moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.03009 12.42C2.39009 17.57 6.76009 21.76 11.9901 21.99C15.6801 22.15 18.9801 20.43 20.9601 17.72C21.7801 16.61 21.3401 15.87 19.9701 16.12C19.3001 16.24 18.6101 16.29 17.8901 16.26C13.0001 16.06 9.00009 11.97 8.98009 7.13996C8.97009 5.83996 9.24009 4.60996 9.73009 3.48996C10.2701 2.24996 9.62009 1.65996 8.37009 2.18996C4.41009 3.85996 1.70009 7.84996 2.03009 12.42Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <?xml version="1.0" encoding="utf-8"?>
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg viewBox="-5.5 0 32 32" version="1.1" class="sun" xmlns="http://www.w3.org/2000/svg">
+                <title>sun</title>
+                <path d="M10.68 21.64c-3.12 0-5.64-2.52-5.64-5.64s2.52-5.64 5.64-5.64 5.64 2.52 5.64 5.64-2.52 5.64-5.64 5.64zM10.68 12.040c-2.2 0-3.96 1.76-3.96 3.96s1.76 3.96 3.96 3.96 3.96-1.76 3.96-3.96-1.76-3.96-3.96-3.96zM10.68 9.040c-0.48 0-0.84-0.36-0.84-0.84v-2.040c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v2.040c0 0.48-0.36 0.84-0.84 0.84zM16.2 11.32c-0.2 0-0.44-0.080-0.6-0.24-0.32-0.32-0.32-0.84 0-1.2l1.44-1.44c0.32-0.32 0.84-0.32 1.2 0 0.32 0.32 0.32 0.84 0 1.2l-1.44 1.44c-0.2 0.16-0.4 0.24-0.6 0.24zM18.48 16.84c-0.48 0-0.84-0.36-0.84-0.84s0.36-0.84 0.84-0.84h2.040c0.48 0 0.84 0.36 0.84 0.84s-0.36 0.84-0.84 0.84h-2.040zM17.64 23.8c-0.2 0-0.44-0.080-0.6-0.24l-1.44-1.48c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l1.44 1.44c0.32 0.32 0.32 0.84 0 1.2-0.16 0.2-0.4 0.28-0.6 0.28zM10.68 26.68c-0.48 0-0.84-0.36-0.84-0.84v-2.040c0-0.48 0.36-0.84 0.84-0.84s0.84 0.36 0.84 0.84v2.040c0 0.48-0.36 0.84-0.84 0.84zM3.72 23.8c-0.2 0-0.44-0.080-0.6-0.24-0.32-0.32-0.32-0.84 0-1.2l1.44-1.44c0.32-0.32 0.84-0.32 1.2 0s0.32 0.84 0 1.2l-1.44 1.44c-0.16 0.16-0.4 0.24-0.6 0.24zM0.84 16.84c-0.48 0-0.84-0.36-0.84-0.84s0.36-0.84 0.84-0.84h2.040c0.48 0 0.84 0.36 0.84 0.84s-0.36 0.84-0.84 0.84h-2.040zM5.16 11.32c-0.2 0-0.44-0.080-0.6-0.24l-1.44-1.44c-0.32-0.32-0.32-0.84 0-1.2 0.32-0.32 0.84-0.32 1.2 0l1.44 1.44c0.32 0.32 0.32 0.84 0 1.2-0.16 0.16-0.36 0.24-0.6 0.24z"></path>
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    <section class="blog-content">
+        <div class="container">
+            <div class="blog-content">
+                <div class="image-container">
+                    <img src="../Images/work-1.png" alt="img">
+                </div>
+                <div class="text-box">
+                    <h2>Debugging Tips and Tricks</h2>
+                    <p>
+                        Debugging is an essential skill for any developer. Whether you're a beginner or an experienced professional, effective debugging can save you time and frustration. Here are some tips and tricks to help you debug your code more efficiently.
+                    </p>
+                    <h3>1. Understand the Problem</h3>
+                    <p>
+                        Before diving into the code, take a step back and understand the problem you're facing. Reproduce the bug and note down the steps that lead to it. Understanding the context and the expected behavior is crucial for effective debugging.
+                    </p>
+                    <h3>2. Use Debugging Tools</h3>
+                    <p>
+                        Modern development environments come with powerful debugging tools. Familiarize yourself with the debugger in your IDE. Learn how to set breakpoints, step through code, inspect variables, and evaluate expressions. Tools like Visual Studio Code, PyCharm, and Chrome DevTools can significantly ease the debugging process.
+                    </p>
+                    <pre><code class="language-javascript">// Example of setting a breakpoint in JavaScript
+function calculateSum(a, b) {
+    let sum = a + b; // Set a breakpoint here
+    return sum;
+}
+console.log(calculateSum(5, 3));</code></pre>
+                    <h3>3. Print Statements</h3>
+                    <p>
+                        Sometimes, a simple console.log() or print() statement can be incredibly helpful. Print out variable values, function calls, and any other relevant information to understand the flow of your code. However, remember to remove or comment out these statements once you're done debugging.
+                    </p>
+                    <h3>4. Break Down the Problem</h3>
+                    <p>
+                        If you're dealing with a complex issue, try to break it down into smaller, manageable parts. Isolate the code that might be causing the problem and test it separately. This approach can help you pinpoint the exact location of the bug.
+                    </p>
+                    <h3>5. Check the Documentation</h3>
+                    <p>
+                        Don't underestimate the power of documentation. Whether it's language documentation, library documentation, or comments in your own code, these resources can provide valuable insights. If you're using a library or framework, look for common issues and solutions in the official documentation.
+                    </p>
+                    <h3>6. Collaborate and Seek Help</h3>
+                    <p>
+                        Two heads are better than one. If you're stuck, don't hesitate to ask for help from a colleague or on online forums like Stack Overflow. Sometimes, explaining the problem to someone else can also help you see it from a different perspective and find a solution.
+                    </p>
+                    <h3>7. Keep Learning</h3>
+                    <p>
+                        Debugging is a skill that improves with practice and continuous learning. Stay updated with new tools, techniques, and best practices. Participate in coding communities, read articles, and take courses to enhance your debugging skills.
+                    </p>
+                    <h2>Conclusion</h3>
+                    <p>
+                        Effective debugging is a critical part of the development process. By understanding the problem, using the right tools, breaking down the issue, consulting documentation, and seeking help when needed, you can debug your code more efficiently. Keep practicing and refining your debugging skills to become a more proficient developer.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <p>Copyright © Sheel.</p>
+        </div>
+    </div>
+
+    <script src="../switch-post.js"></script>
+    <script src="../tablinks.js"></script>
+    <script src="../sidemenu.js"></script>
+</body>
+</html>
