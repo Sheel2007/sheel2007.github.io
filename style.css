@@ -171,12 +171,6 @@ nav a i {
     font-size: 20px;
 }
 
-#blurb {
-    max-width: 40%;
-    overflow: clip;
-    line-height: 130%;
-}
-
 .header-text h1 span {
     /* color: #1cdb22; */
     color: #080808;
@@ -432,6 +426,28 @@ nav a i {
 
 .btn:hover {
     background: #1cdb22;
+}
+
+/*---------------------hobby ----------------*/
+
+.hobby-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 40px;
+    margin-top: 50px;
+}
+
+.hobby {
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;   
+}
+
+.hobby img {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+    transition: transform 0.5s;
 }
 
 /* ---------------------------contact----------------------------- */
