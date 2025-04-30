@@ -10,7 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 
-const TypewriterEffect = ({ text, className }: { text: string; className?: string }) => {
+const TypewriterEffect = ({ text, className }: { text: string[]; className?: string }) => {
   const [displayText, setDisplayText] = useState("")
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
@@ -30,7 +30,7 @@ const TypewriterEffect = ({ text, className }: { text: string; className?: strin
     if (isDeleting) {
       if (displayText === "") {
         setIsDeleting(false)
-        setCurrentIndex((currentIndex + 1) % 1) // Only one name for now
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % text.length)
         return
       }
 
@@ -40,14 +40,15 @@ const TypewriterEffect = ({ text, className }: { text: string; className?: strin
       return () => clearTimeout(timeout)
     }
 
-    if (currentIndex === 0 && displayText === text) {
+    const currentText = text[currentIndex]
+    if (displayText === currentText) {
       setIsWaiting(true)
       return
     }
 
-    if (displayText.length < text.length) {
+    if (displayText.length < currentText.length) {
       timeout = setTimeout(() => {
-        setDisplayText((prev) => text.slice(0, prev.length + 1))
+        setDisplayText((prev) => currentText.slice(0, prev.length + 1))
       }, 100)
     }
 
@@ -296,7 +297,17 @@ export default function Portfolio() {
                 <div className="mb-6">
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">Hi, I'm</h1>
                   <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary h-[1.2em] flex items-center">
-                    <TypewriterEffect text="Sheel Shah" className="inline-block" />
+                    <TypewriterEffect 
+                      text={[
+                        "Sheel Shah",
+                        "a teenager",
+                        "a Programmer",
+                        "an Engineer",
+                        "a Visionary",
+                        "a Leader"
+                      ]} 
+                      className="inline-block" 
+                    />
                   </h1>
                 </div>
                 <p className="text-xl text-muted-foreground mb-8">
