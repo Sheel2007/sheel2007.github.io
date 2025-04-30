@@ -432,21 +432,25 @@ export default function Portfolio() {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                      <Button
-                        size="sm"
-                        variant="secondary"
-                        asChild
-                        className="scale-90 hover:scale-100 transition-transform duration-200"
-                      >
-                        <a href={project.github} target="_blank" rel="noopener noreferrer">
-                          <Github className="mr-2 h-4 w-4" /> Code
-                        </a>
-                      </Button>
-                      <Button size="sm" asChild className="scale-90 hover:scale-100 transition-transform duration-200">
-                        <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="mr-2 h-4 w-4" /> Demo
-                        </a>
-                      </Button>
+                      {project.github !== "#" && (
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          asChild
+                          className="scale-90 hover:scale-100 transition-transform duration-200"
+                        >
+                          <a href={project.github} target="_blank" rel="noopener noreferrer">
+                            <Github className="mr-2 h-4 w-4" /> Code
+                          </a>
+                        </Button>
+                      )}
+                      {project.demo !== "#" && (
+                        <Button size="sm" asChild className="scale-90 hover:scale-100 transition-transform duration-200">
+                          <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="mr-2 h-4 w-4" /> Demo
+                          </a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                   <div className="p-6">
