@@ -381,7 +381,7 @@ export default function Portfolio() {
             </div>
           </div>
           <motion.div
-            className="absolute left-1/2 -translate-x-1/2 bottom-12 flex flex-col items-center text-muted-foreground hidden md:flex cursor-pointer"
+            className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center justify-center text-muted-foreground md:block cursor-pointer w-24"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: [0, 10, 0] }}
             transition={{ delay: 1, duration: 2, repeat: Number.POSITIVE_INFINITY }}
@@ -389,16 +389,18 @@ export default function Portfolio() {
               document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
             }}
           >
-            <span className="text-sm mb-2">Scroll Down</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 5V19M12 19L19 12M12 19L5 12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <div className="flex flex-col items-center">
+              <span className="text-sm mb-2">Scroll Down</span>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="animate-bounce">
+                <path
+                  d="M12 5V19M12 19L19 12M12 19L5 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </motion.div>
         </section>
 
@@ -416,7 +418,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ margin: "-100px" }}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">My Projects</h2>
@@ -432,7 +434,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                   whileHover={{
                     y: -5,
                     transition: { duration: 0.2 },
@@ -496,7 +498,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ margin: "-100px" }}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Work Experience</h2>
@@ -512,7 +514,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                   className="mb-12 relative pl-8 border-l-2 border-primary/30 last:mb-0"
                 >
                   <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary"></div>
@@ -544,7 +546,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ margin: "-100px" }}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills & Expertise</h2>
@@ -560,7 +562,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.05 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                   whileHover={{
                     scale: 1.03,
                     boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
@@ -582,7 +584,7 @@ export default function Portfolio() {
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.level}%` }}
                       transition={{ duration: 1, delay: 0.2 }}
-                      viewport={{ once: true }}
+                      viewport={{ margin: "-100px" }}
                       className="h-full bg-primary rounded-full relative"
                     >
                       <motion.span
@@ -612,7 +614,7 @@ export default function Portfolio() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ margin: "-100px" }}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
@@ -627,7 +629,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                 >
                   <h3 className="text-xl font-bold mb-4">Contact Information</h3>
                   <div className="space-y-4">
@@ -686,7 +688,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ margin: "-100px" }}
                   className="space-y-4"
                 >
                   <div>
