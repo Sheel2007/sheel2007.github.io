@@ -314,21 +314,35 @@ export default function Portfolio() {
                   I'm a teenage tech enthusiast with a passion for artificial intelligence and computer science.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <Button asChild className="group relative overflow-hidden">
-                    <Link href="#projects">
-                      <span className="absolute inset-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
-                      <span className="relative z-10 flex items-center">
-                        View Projects
-                        <motion.span
-                          className="ml-2 inline-block"
-                          animate={{ x: [0, 4, 0] }}
-                          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5, ease: "easeInOut" }}
-                        >
-                          <ArrowRight className="h-4 w-4" />
-                        </motion.span>
-                      </span>
-                    </Link>
-                  </Button>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    animate={{
+                      y: [0, -4, 0],
+                      rotate: [0, -1, 1, -1, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <Button asChild className="group relative overflow-hidden">
+                      <Link href="#projects">
+                        <span className="absolute inset-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
+                        <span className="relative z-10 flex items-center">
+                          View Projects
+                          <motion.span
+                            className="ml-2 inline-block"
+                            animate={{ x: [0, 4, 0] }}
+                            transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5, ease: "easeInOut" }}
+                          >
+                            <ArrowRight className="h-4 w-4" />
+                          </motion.span>
+                        </span>
+                      </Link>
+                    </Button>
+                  </motion.div>
                   <Button variant="outline" asChild className="group relative overflow-hidden">
                     <Link href="#contact">
                       <span className="absolute inset-0 w-0 bg-primary/10 transition-all duration-300 group-hover:w-full"></span>
@@ -711,10 +725,28 @@ export default function Portfolio() {
                     ></textarea>
                   </div>
 
-                  <Button type="submit" className="w-full relative overflow-hidden group">
-                    <span className="absolute inset-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
-                    <span className="relative z-10">Send Message</span>
-                  </Button>
+                  <motion.div
+                    whileHover={{
+                      scale: 1.05,
+                      y: -4,
+                      rotate: [0, -1, 1, -1, 0],
+                      transition: {
+                        duration: 0.3,
+                        rotate: {
+                          duration: 0.5,
+                          repeat: 0
+                        }
+                      }
+                    }}
+                    initial={{ rotate: 0 }}
+                    animate={{ rotate: 0 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button type="submit" className="w-full relative overflow-hidden group">
+                      <span className="absolute inset-0 w-full h-0 bg-white/20 transition-all duration-300 group-hover:h-full"></span>
+                      <span className="relative z-10">Send Message</span>
+                    </Button>
+                  </motion.div>
                 </motion.form>
               </div>
             </div>
