@@ -648,7 +648,7 @@ export default function Portfolio() {
                       </div>
                       <ul className="mb-4 text-muted-foreground list-disc pl-4 space-y-2">
                         <li>Selected from a pool of 135 students in the grade to be featured in local magazine</li>
-                        <li>Featured in an article titled “What Exactly is Arlington Tech” by the Arlington Magazine</li>
+                        <li>Featured in an article titled "What Exactly is Arlington Tech" by the Arlington Magazine</li>
                       </ul>
                     </div>
                   </div>
@@ -828,6 +828,53 @@ export default function Portfolio() {
                         </a>
                       </div>
                     </div>
+
+                    <motion.div
+                      whileHover={{
+                        scale: 1.05,
+                        y: -4,
+                        rotate: [0, -1, 1, -1, 0],
+                        transition: {
+                          duration: 0.3
+                        }
+                      }}
+                      initial={{ rotate: 0 }}
+                      animate={{ rotate: 0 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="mt-4"
+                    >
+                      <Button
+                        asChild
+                        className="relative overflow-hidden group w-full"
+                      >
+                        <a
+                          href="/Resume.pdf"
+                          download="Sheel_Shah_Resume.pdf"
+                          className="inline-flex items-center justify-center gap-2 w-full"
+                        >
+                          <span className="absolute inset-0 w-0 bg-white/20 transition-all duration-300 group-hover:w-full"></span>
+                          <span className="relative z-10 flex items-center justify-center gap-2">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="group-hover:translate-y-[2px] transition-transform duration-300"
+                            >
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                              <polyline points="7 10 12 15 17 10" />
+                              <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                            Download Resume
+                          </span>
+                        </a>
+                      </Button>
+                    </motion.div>
                   </div>
                 </motion.div>
 
