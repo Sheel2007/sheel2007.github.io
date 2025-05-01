@@ -76,7 +76,7 @@ export default function Portfolio() {
     setMounted(true)
 
     const handleScroll = () => {
-      const sections = ["home", "projects", "experience", "skills", "contact"]
+      const sections = ["home", "projects", "experience", "awards", "contact"]
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -104,7 +104,7 @@ export default function Portfolio() {
     { name: "Home", href: "#home" },
     { name: "Projects", href: "#projects" },
     { name: "Experience", href: "#experience" },
-    { name: "Skills", href: "#skills" },
+    { name: "Awards", href: "#awards" },
     { name: "Contact", href: "#contact" },
   ]
 
@@ -167,17 +167,6 @@ export default function Portfolio() {
       ],
       technologies: ["TypeScript"],
     },
-  ]
-
-  const skills = [
-    { name: "JavaScript", level: 90 },
-    { name: "React", level: 85 },
-    { name: "TypeScript", level: 80 },
-    { name: "Node.js", level: 75 },
-    { name: "Next.js", level: 85 },
-    { name: "CSS/Tailwind", level: 90 },
-    { name: "GraphQL", level: 70 },
-    { name: "AWS", level: 65 },
   ]
 
   return (
@@ -381,7 +370,7 @@ export default function Portfolio() {
             </div>
           </div>
           <motion.div
-            className="absolute left-1/2 -translate-x-1/2 bottom-8 flex flex-col items-center justify-center text-muted-foreground md:block cursor-pointer w-24"
+            className="absolute inset-x-0 bottom-8 flex flex-col items-center text-muted-foreground md:block cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, y: [0, 10, 0] }}
             transition={{ delay: 1, duration: 2, repeat: Number.POSITIVE_INFINITY }}
@@ -539,8 +528,8 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-16 md:py-24 bg-muted/30 relative">
+        {/* Awards Section */}
+        <section id="awards" className="py-16 md:py-24 bg-muted/30 relative">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -549,60 +538,218 @@ export default function Portfolio() {
               viewport={{ margin: "-100px" }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Skills & Expertise</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Awards & Recognition</h2>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                Technologies and tools I've worked with and mastered over the years.
+                Notable achievements and acknowledgments from my journey.
               </p>
             </motion.div>
 
-            <div className="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-              {skills.map((skill, index) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  viewport={{ margin: "-100px" }}
-                  whileHover={{
-                    scale: 1.03,
-                    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-                    transition: { duration: 0.2 },
-                  }}
-                  className="p-4 bg-card rounded-lg border hover:border-primary/50 transition-all duration-300"
-                >
-                  <div className="flex justify-between mb-2">
-                    <motion.span
-                      className="font-medium"
-                      whileHover={{ color: "var(--primary)", x: 2, transition: { duration: 0.2 } }}
-                    >
-                      {skill.name}
-                    </motion.span>
-                    <span className="text-primary">{skill.level}%</span>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ margin: "-100px" }}
+                className="relative"
+              >
+                <div className="bg-card rounded-lg border p-6 transition-all duration-300 hover:border-primary/50">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="shrink-0">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-primary"
+                        >
+                          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                          <path d="M4 22h16" />
+                          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                        <h3 className="text-xl font-bold">Speaker at PyCon, an international conference</h3>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">May 2024</span>
+                          <a
+                            href="https://github.com/1bMedina/NASA_ADC"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
+                          >
+                            <span>View Project</span>
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
+                      <ul className="mb-4 text-muted-foreground list-disc pl-4 space-y-2">
+                        <li>Developed a 3D visualization of the moon's dark side using advanced data processing techniques</li>
+                        <li>Converted raw terrain data (latitude and longitude) into Cartesian coordinates and PNG formats</li>
+                        <li>Integrated the visualization with the Ursina game engine for dynamic rendering</li>
+                        <li>Presented the project at PyCon 2024 to a professional audience of Python developers</li>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="w-full h-2 bg-muted rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${skill.level}%` }}
-                      transition={{ duration: 1, delay: 0.2 }}
-                      viewport={{ margin: "-100px" }}
-                      className="h-full bg-primary rounded-full relative"
-                    >
-                      <motion.span
-                        className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary/80 to-primary"
-                        animate={{
-                          x: ["-100%", "100%"],
-                          opacity: [0.5, 0.8, 0.5],
-                        }}
-                        transition={{
-                          repeat: Number.POSITIVE_INFINITY,
-                          duration: 2,
-                          ease: "linear",
-                        }}
-                      ></motion.span>
-                    </motion.div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ margin: "-100px" }}
+                className="relative"
+              >
+                <div className="bg-card rounded-lg border p-6 transition-all duration-300 hover:border-primary/50">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="shrink-0">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-primary"
+                        >
+                          <path d="M12 17.8 5.8 21 7 14.1 2 9.3l7-1L12 2" />
+                          <path d="m12 17.8 6.2 3.2-1.2-6.9 5-4.8-7-1L12 2" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                        <h3 className="text-xl font-bold">Feature an article by the Arlington Magazine</h3>
+                        <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">December 2022</span>
+                        <a
+                            href="https://www.arlingtonmagazine.com/arlington-tech-high-school-aps/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
+                          >
+                            <span>View Article</span>
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                      </div>
+                      <ul className="mb-4 text-muted-foreground list-disc pl-4 space-y-2">
+                        <li>Selected from a pool of 135 students in the grade to be featured in local magazine</li>
+                        <li>Featured in an article titled “What Exactly is Arlington Tech” by the Arlington Magazine</li>
+                      </ul>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ margin: "-100px" }}
+                className="relative"
+              >
+                <div className="bg-card rounded-lg border p-6 transition-all duration-300 hover:border-primary/50">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="shrink-0">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-primary"
+                        >
+                          <path d="M8.4 19A3.4 3.4 0 0 1 5 15.6V8.4A3.4 3.4 0 0 1 8.4 5h7.2A3.4 3.4 0 0 1 19 8.4v7.2a3.4 3.4 0 0 1-3.4 3.4Z" />
+                          <path d="M10 12a2 2 0 1 1 4 0v4" />
+                          <path d="M14 12a2 2 0 1 1 4 0v4" />
+                          <path d="M10 12v4" />
+                          <path d="M6 12v4" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                        <h3 className="text-xl font-bold">Speaker at National Conference</h3>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">October 2024</span>
+                          <a
+                            href="https://www.setda.org/about/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
+                          >
+                            <span>View Website</span>
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
+                      <ul className="mb-4 text-muted-foreground list-disc pl-4 space-y-2">
+                        <li>Selected to speak at SETDA Leadership Summit and Ed Forum for education leaders</li>
+                        <li>Featured on a student panel discussing the importance of technology in education</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ margin: "-100px" }}
+                className="relative"
+              >
+                <div className="bg-card rounded-lg border p-6 transition-all duration-300 hover:border-primary/50">
+                  <div className="flex flex-col md:flex-row gap-6 items-start">
+                    <div className="shrink-0">
+                      <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-primary"
+                        >
+                          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                        <h3 className="text-xl font-bold">Certification in Web Design and Development</h3>
+                        <span className="text-sm px-3 py-1 rounded-full bg-primary/10 text-primary">May 2023</span>
+                      </div>
+                      <ul className="mb-4 text-muted-foreground list-disc pl-4 space-y-2">
+                        <li>Passed the CIW Advanced HTML5 and CSS3 Specialist exam to become a certified web designer</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             </div>
           </div>
         </section>
