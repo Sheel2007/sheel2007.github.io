@@ -68,6 +68,15 @@ export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+  const [submitStatus, setSubmitStatus] = useState<{
+    message: string;
+    type: 'success' | 'error' | null;
+  }>({ message: '', type: null })
 
   // Add type for motion components
   type MotionDivProps = HTMLMotionProps<"div">
@@ -884,6 +893,36 @@ export default function Portfolio() {
                   transition={{ duration: 0.5 }}
                   viewport={{ margin: "-100px" }}
                   className="space-y-4"
+                  onSubmit={async (e) => {
+                    e.preventDefault()
+                    try {
+                      const response = await fetch('https://script.google.com/macros/s/AKfycbz4rHyoavOcAmCoJzuJF5HaG75z8PLehpSF0SYi5-Bn87b6Y5LHmuM5rfxe-GUgBVRp/exec', {
+                        method: 'POST',
+                        body: new FormData(e.currentTarget)
+                      })
+                      
+                      if (response.ok) {
+                        setSubmitStatus({
+                          message: 'Message sent successfully!',
+                          type: 'success'
+                        })
+                        setFormData({ name: '', email: '', message: '' })
+                        setTimeout(() => {
+                          setSubmitStatus({ message: '', type: null })
+                        }, 5000)
+                      } else {
+                        throw new Error('Failed to send message')
+                      }
+                    } catch (error) {
+                      setSubmitStatus({
+                        message: 'Error sending message. Please try again.',
+                        type: 'error'
+                      })
+                      setTimeout(() => {
+                        setSubmitStatus({ message: '', type: null })
+                      }, 5000)
+                    }
+                  }}
                 >
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-1">
@@ -892,8 +931,12 @@ export default function Portfolio() {
                     <input
                       type="text"
                       id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-2 rounded-md border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="Your Name"
+                      required
                     />
                   </div>
 
@@ -904,8 +947,12 @@ export default function Portfolio() {
                     <input
                       type="email"
                       id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-4 py-2 rounded-md border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="your.email@example.com"
+                      required
                     />
                   </div>
 
@@ -915,11 +962,25 @@ export default function Portfolio() {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       rows={4}
                       className="w-full px-4 py-2 rounded-md border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="Your message here..."
+                      required
                     ></textarea>
                   </div>
+
+                  {submitStatus.message && (
+                    <div className={`p-3 rounded-md ${
+                      submitStatus.type === 'success' 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-red-100 text-red-800'
+                    }`}>
+                      {submitStatus.message}
+                    </div>
+                  )}
 
                   <motion.div
                     whileHover={{
