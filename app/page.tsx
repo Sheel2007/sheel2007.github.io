@@ -298,7 +298,6 @@ export default function Portfolio() {
                     <TypewriterEffect 
                       text={[
                         "Sheel Shah",
-                        "a teenager",
                         "a Programmer",
                         "an Engineer",
                         "a Visionary",
@@ -309,7 +308,7 @@ export default function Portfolio() {
                   </h1>
                 </div>
                 <p className="text-xl text-muted-foreground mb-8">
-                  I'm a teenage tech enthusiast with a passion for artificial intelligence and computer science.
+                I'm a technologist driven by curiosity and a love for building. From electric cars to computer games, I turn ideas into real projects and chase the next big tech challenge with code.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <motion.div
