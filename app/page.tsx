@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import type { HTMLMotionProps } from "framer-motion"
 import { ArrowRight, Code, ExternalLink, Github, Linkedin, Mail, Menu, Moon, Sun, X } from "lucide-react"
@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button"
 import { ThemeProvider } from "@/components/theme-provider"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
+import React from "react"
 
 const TypewriterEffect = ({ text, className }: { text: string[]; className?: string }) => {
   const [displayText, setDisplayText] = useState("")
@@ -63,6 +65,122 @@ const TypewriterEffect = ({ text, className }: { text: string[]; className?: str
   )
 }
 
+// Throttle utility
+function throttle<T extends (...args: any[]) => void>(func: T, limit: number): T {
+  let inThrottle: boolean;
+  let lastArgs: any;
+  return function(this: any, ...args: any[]) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => {
+        inThrottle = false;
+        if (lastArgs) {
+          func.apply(this, lastArgs);
+          lastArgs = null;
+        }
+      }, limit);
+    } else {
+      lastArgs = args;
+    }
+  } as T;
+}
+
+type ProjectCard = {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  github: string;
+  demo: string;
+  isPlaceholder: boolean;
+  ghost: boolean;
+};
+
+// Memoized card component
+const ProjectCardComponent = React.memo(function ProjectCardComponent({ project, index, visibleCards }: { project: ProjectCard, index: number, visibleCards: number }) {
+  return (
+    <motion.div
+      key={project.id}
+      data-carousel-card
+      style={{ flex: `0 0 calc((100% - 2rem * (${visibleCards} - 1)) / ${visibleCards})` }}
+      className={`flex-shrink-0 min-w-0 scroll-snap-align-start${project.ghost ? ' opacity-0 pointer-events-none' : ''}`}
+      initial={project.ghost ? undefined : { opacity: 0, y: 20 }}
+      whileInView={project.ghost ? undefined : { opacity: 1, y: 0 }}
+      transition={project.ghost ? undefined : { duration: 0.5, delay: index * 0.1 }}
+      viewport={project.ghost ? undefined : { margin: "-100px" }}
+      whileHover={project.ghost ? undefined : {
+        y: -5,
+        transition: { duration: 0.2 },
+      }}
+    >
+      <div className="bg-card rounded-xl overflow-hidden border shadow-sm group hover:shadow-md transition-all duration-300">
+        <div className="relative aspect-[16/9] overflow-hidden flex items-center justify-center">
+          {project.isPlaceholder ? (
+            <>
+              <div className="flex flex-col items-center justify-center w-full h-full">
+                <svg width="64" height="64" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground mb-2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 21V13h8v8"/></svg>
+                <span className="text-lg text-muted-foreground font-semibold">Coming Soon</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="w-full h-full relative">
+                <Image
+                  src={project.image || "/placeholder.svg"}
+                  alt={project.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={index < 3}
+                />
+              </div>
+              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                {project.github !== "#" && (
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    asChild
+                    className="scale-90 hover:scale-100 transition-transform duration-200"
+                  >
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="mr-2 h-4 w-4" /> Code
+                    </a>
+                  </Button>
+                )}
+                {project.demo !== "#" && (
+                  <Button size="sm" asChild className="scale-90 hover:scale-100 transition-transform duration-200">
+                    <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" /> Demo
+                    </a>
+                  </Button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+        <div className="p-6">
+          <h3 className={`text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300 ${project.isPlaceholder ? 'text-muted-foreground' : ''}`}>
+            {project.title}
+          </h3>
+          <p className="text-muted-foreground mb-4">{project.isPlaceholder ? 'More projects will be added here soon! Stay tuned for updates.' : project.description}</p>
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag: string) => (
+              <span
+                key={tag}
+                className={`px-2 py-1 ${project.isPlaceholder ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'} text-xs rounded-full transition-transform duration-200 hover:scale-105 hover:bg-primary/20`}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+});
+
 export default function Portfolio() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("home")
@@ -77,6 +195,7 @@ export default function Portfolio() {
     message: string;
     type: 'success' | 'error' | null;
   }>({ message: '', type: null })
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0)
 
   // Add type for motion components
   type MotionDivProps = HTMLMotionProps<"div">
@@ -129,7 +248,7 @@ export default function Portfolio() {
     {
       title: "Tic Tac Toe AI",
       description: "Developed an A.I. program that plays Tic-Tac-Toe using Monte-Carlo Tree Search algorithm for a master's course at Carnegie Mellon University: Heinz College.",
-      tags: ["Python", "Machine Learning"],
+      tags: ["Python", "Algorithms"],
       image: "/tictactoe.png",
       github: "https://github.com/Sheel2007/AI-TicTacToe",
       demo: "#",
@@ -177,6 +296,147 @@ export default function Portfolio() {
       technologies: ["TypeScript"],
     },
   ]
+
+  const visibleCards = 3;
+  const minCards = 9;
+  const placeholdersNeeded = Math.max(0, minCards - projects.length);
+  const placeholders = Array.from({ length: placeholdersNeeded }, (_, i) => ({
+    id: `placeholder-${i+1}`,
+    title: `Coming Soon ${i+1}`,
+    description: 'More projects will be added here soon!',
+    tags: ['Placeholder'],
+    image: '/placeholder.svg',
+    github: '#',
+    demo: '#',
+    isPlaceholder: true,
+    ghost: false,
+  }));
+
+  // Define each card as a separate variable
+  const project1: ProjectCard = {
+    id: 'placeholder-1',
+    title: 'Co-Organizer of County-Wide Coding Competition',
+    description: "Spent 9 months organizing Arlington County's first ever coding competition for middle and high school students, an event that drew over 50 participants.",
+    tags: ['Python', 'Java', 'Community Service', 'Leadership'],
+    image: '/codingcomp.jpg',
+    github: 'https://github.com/ArlingtonCS/aps-hspc-2025',
+    demo: 'https://aps-hspc.pages.dev',
+    isPlaceholder: false,
+    ghost: false,
+  };
+  const project2: ProjectCard = {
+    id: 'placeholder-2',
+    title: 'Object Tracking Launcher',
+    description: 'Developed a self-aiming targeting system using the YOLO algorithm, integrated multisensor data (depth, RGB, motion) for real-time servo adjustments and a pressurized oxygen launch mechanism.',
+    tags: ['Python', 'Computer Vision', 'Circuitry', 'Electricity'],
+    image: '/launcher.jpg',
+    github: 'https://github.com/Sheel2007/PingPong-Launcher',
+    demo: '#',
+    isPlaceholder: false,
+    ghost: false,
+  };
+  const project3: ProjectCard = {
+    id: 'placeholder-3',
+    title: 'Maze Solver Algorithm',
+    description: "Used Dijkstra's algorithm to determine the shortest paths to navigate a maze",
+    tags: ['Python', 'Algorithms'],
+    image: '/maze.png',
+    github: 'https://github.com/Sheel2007/Dijkstra-Implementation',
+    demo: '#',
+    isPlaceholder: false,
+    ghost: false,
+  };
+
+  // Helper to convert any project to ProjectCard with unique id
+  const toProjectCard = (p: any, i: number): ProjectCard => ({
+    id: p.id || `project-${i}`,
+    title: p.title,
+    description: p.description,
+    tags: p.tags,
+    image: p.image,
+    github: p.github,
+    demo: p.demo,
+    isPlaceholder: false,
+    ghost: false,
+  });
+
+  // Build the filledProjects array: real projects and placeholders in custom order
+  const getProjectByTitle = (title: string) => {
+    const idx = projects.findIndex(p => p.title === title);
+    return idx !== -1 ? toProjectCard(projects[idx], idx) : undefined;
+  };
+  let filledProjects: ProjectCard[] = [
+    getProjectByTitle('Computer Vision Dimension Extraction for Marine Biology'),
+    project1, // Co-Organizer of County-Wide Coding Competition
+    getProjectByTitle('Computer Controlled Electric Vehicle'),
+    project2, // Object Tracking Launcher
+    getProjectByTitle('Tic Tac Toe AI'),
+    project3, // Maze Solver Algorithm
+    // Fill with remaining placeholders if needed
+    ...placeholders.slice(3, Math.max(3, 9 - 6))
+  ].filter(Boolean) as ProjectCard[];
+  // Add ghost cards to fill the last page
+  const remainder = filledProjects.length % visibleCards;
+  if (remainder !== 0) {
+    for (let i = 0; i < visibleCards - remainder; i++) {
+      filledProjects.push({
+        id: `ghost-${i}`,
+        title: '',
+        description: '',
+        tags: [],
+        image: '',
+        github: '',
+        demo: '',
+        isPlaceholder: false,
+        ghost: true,
+      });
+    }
+  }
+  const numPages = Math.ceil(filledProjects.length / visibleCards);
+  const [currentPage, setCurrentPage] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to a page (by true page width including margins)
+  const scrollToPage = (page: number) => {
+    const clamped = Math.max(0, Math.min(numPages - 1, page));
+    setCurrentPage(clamped);
+    if (carouselRef.current) {
+      const container = carouselRef.current;
+      const card = container.querySelector('[data-carousel-card]:not(.opacity-0)') as HTMLElement;
+      if (card) {
+        // Get computed margin (assume gap-8 = 2rem)
+        const style = window.getComputedStyle(card);
+        const margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+        const cardWidth = card.offsetWidth + margin;
+        const scrollAmount = cardWidth * visibleCards;
+        // If last page, scroll to maxScrollLeft
+        if (clamped === numPages - 1) {
+          container.scrollTo({
+            left: container.scrollWidth - container.clientWidth,
+            behavior: 'smooth',
+          });
+        } else {
+          container.scrollTo({
+            left: clamped * scrollAmount,
+            behavior: 'smooth',
+          });
+        }
+      }
+    }
+  };
+
+  // Listen to scroll and update currentPage
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) return;
+    const onScroll = () => {
+      const page = Math.round(container.scrollLeft / container.offsetWidth);
+      setCurrentPage(page);
+    };
+    const throttledScroll = throttle(onScroll, 100);
+    container.addEventListener('scroll', throttledScroll);
+    return () => container.removeEventListener('scroll', throttledScroll);
+  }, []);
 
   return (
     <ThemeProvider attribute="class" defaultTheme="dark">
@@ -424,66 +684,106 @@ export default function Portfolio() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ margin: "-100px" }}
-                  whileHover={{
-                    y: -5,
-                    transition: { duration: 0.2 },
-                  }}
-                  className="bg-card rounded-xl overflow-hidden border shadow-sm group hover:shadow-md transition-all duration-300"
+            <div className="relative w-full overflow-x-hidden">
+              <div
+                ref={carouselRef}
+                className="flex w-full overflow-x-auto flex-nowrap scroll-smooth scroll-snap-x-mandatory pb-4 gap-8"
+                style={{ WebkitOverflowScrolling: 'touch' }}
+              >
+                {filledProjects.map((project, index) => {
+                  return <ProjectCardComponent key={project.id} project={project} index={index} visibleCards={visibleCards} />;
+                })}
+              </div>
+
+              <div className="flex justify-center items-center gap-4 mt-8">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scrollToPage(currentPage - 1)}
+                  disabled={currentPage === 0}
+                  className="relative overflow-hidden group"
                 >
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
+                  <span className="absolute inset-0 w-full h-0 bg-primary/10 transition-all duration-300 group-hover:h-full"></span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 relative z-10"
+                  >
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </Button>
+
+                <div className="flex gap-2">
+                  {Array.from({ length: numPages }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => scrollToPage(index)}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentPage ? 'bg-primary' : 'bg-muted-foreground/20'
+                      }`}
                     />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                      {project.github !== "#" && (
-                        <Button
-                          size="sm"
-                          variant="secondary"
-                          asChild
-                          className="scale-90 hover:scale-100 transition-transform duration-200"
-                        >
-                          <a href={project.github} target="_blank" rel="noopener noreferrer">
-                            <Github className="mr-2 h-4 w-4" /> Code
-                          </a>
-                        </Button>
-                      )}
-                      {project.demo !== "#" && (
-                        <Button size="sm" asChild className="scale-90 hover:scale-100 transition-transform duration-200">
-                          <a href={project.demo} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="mr-2 h-4 w-4" /> Demo
-                          </a>
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full transition-transform duration-200 hover:scale-105 hover:bg-primary/20"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                  ))}
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scrollToPage(currentPage + 1)}
+                  disabled={currentPage === numPages - 1}
+                  className="relative overflow-hidden group"
+                >
+                  <span className="absolute inset-0 w-full h-0 bg-primary/10 transition-all duration-300 group-hover:h-full"></span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-5 w-5 relative z-10"
+                  >
+                    <path d="m9 18 6-6-6-6" />
+                  </svg>
+                </Button>
+              </div>
+
+              <div className="flex justify-center mt-6">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => scrollToPage(currentPage + 1)}
+                  disabled={currentPage === numPages - 1}
+                  className="flex items-center gap-2 px-6 py-2 rounded-full bg-primary text-white font-semibold shadow transition-all focus:outline-none focus:ring-2 focus:ring-primary/50"
+                >
+                  <span>View More</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="animate-bounce"
+                  >
+                    <path
+                      d="M5 12h14M12 5l7 7-7 7"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </motion.button>
+              </div>
             </div>
           </div>
         </section>
